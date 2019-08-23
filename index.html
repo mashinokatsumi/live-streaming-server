@@ -1,0 +1,48 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>Socket.IO Streaming</title>
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+    <h3>FM Exhibition Tool Pack</h3>
+    <h2>Streaming Receiver (Demo Client)</h2>
+    <p id="StatusText">Status: Not Connected</p>
+    IP Address: <input type="text" id="IpAddress" value="http://localhost:3000">
+
+    <button onclick="ConnectSocketIO()">Connect</button>
+    <br><br>
+    <img id="DisplayImg" src="" width=100% />
+
+    <script type="text/javascript">function ConnectSocketIO() {
+            var IP = document.getElementById("IpAddress").value;
+            var socket = io.connect(IP);
+            //var socket = io.connect('http://localhost:3000');
+
+            socket.on('webimage-byte', function (data) {
+
+                document.getElementById("StatusText").innerHTML = "Status: Received Image(byte) " + data.ByteData.length;
+                //console.log(data.ByteData.length);
+
+                //----conver byte[] to Base64 string----
+                var binary = '';
+                var bytes = new Uint8Array(data.ByteData);
+                var len = bytes.byteLength;
+                for (var i = 0; i < len; i++) {
+                    binary += String.fromCharCode(bytes[i]);
+                }
+                //----conver byte[] to Base64 string----
+
+                //----display image----
+                var img = document.getElementById('DisplayImg');
+                img.src = 'data:image/jpeg;base64,' + btoa(binary);
+                img.width = data.Width;
+                img.height = data.Height;
+                //----display image----
+
+            });
+        }</script>
+
+</body>
+</html>

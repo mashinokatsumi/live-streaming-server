@@ -1,0 +1,19 @@
+{
+  "name": "io.socketio.livegamestreamingserver",
+  "displayName": "Socket IO Live Game Streaming Server",
+  "version": "1.0.0",
+  "description": "A sample streaming server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Sweetmei",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "http": "0.0.0",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {}
+}
